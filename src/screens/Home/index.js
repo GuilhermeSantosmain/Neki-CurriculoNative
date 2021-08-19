@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../contexts/auth'
 import { DataTable } from 'react-native-paper';
 import styles from '../Login/styles';
-import CadastroSkill from '../../components/CatalogoSkills'
+import CatalogoSkills from '../../components/CatalogoSkills'
 
 const Home = () => {
   const { user, skills, logOut, getHabilidades, getHabilidadesNaoUsadas, http, setSkill } = useContext(AuthContext)
@@ -23,7 +23,7 @@ const Home = () => {
   const navigation = useNavigation();
   const [shouldShow, setShouldShow] = useState(false)
 
-  
+
   function navCadastroSkill() {
     navigation.navigate('CadastroSkill')
   }
@@ -32,7 +32,7 @@ const Home = () => {
     navigation.navigate('EditSkill')
   }
   function adicionaHabilidade(habilidade) {
-    http.post('usuario/adiciona/'+habilidade.id, user)
+    http.post('usuario/adiciona/' + habilidade.id, user)
       .then(response => {
         console.log(response.data)
         getHabilidades()
@@ -43,7 +43,7 @@ const Home = () => {
       })
 
   }
-  
+
   function removerHabilidade(idHabilidade) {
     console.log(idHabilidade);
     console.log(user);
@@ -57,82 +57,90 @@ const Home = () => {
       })
 
   }
-  if(user){
-  return (
-    <View>
+  if (user) {
+    return (
+      <View>
 
-      <ScrollView>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-         
-          <TouchableOpacity onPress={navCadastroSkill}>
-            <Text style={{padding: 8, borderColor:'#000', borderWidth:1, borderRadius:20, margin:10}}>Cadastro de skill</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity onPress={() => logOut()}>
-            <Text style={{padding: 8, borderColor:'#000', borderWidth:1, borderRadius:20, margin:10}}>Logout</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={[styles.txt, {color: '#000', textAlign: "center"}]}>{user.nome}</Text>
+        <ScrollView>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
-        <View>
-          <DataTable>
-            <DataTable.Header>
-              <DataTable.Title>#</DataTable.Title>
-              <DataTable.Title>Skill</DataTable.Title>
-              <DataTable.Title>Domínio</DataTable.Title>
-              <DataTable.Title>-</DataTable.Title>
-              <DataTable.Title>-</DataTable.Title>
-            </DataTable.Header>
-            {skills.map((skill) => {
+            <TouchableOpacity onPress={navCadastroSkill}>
+              <Text style={{ padding: 8, borderColor: '#000', borderWidth: 1, borderRadius: 20, margin: 10 }}>Cadastro de skill</Text>
+            </TouchableOpacity>
 
-              return (
-                <View>
-                  <DataTable.Row>
-                    <DataTable.Cell>
-                      <Image source={skill.habilidade.imagem} />
-                    </DataTable.Cell>
-                    <DataTable.Cell>{skill.habilidade.nome}</DataTable.Cell>
-                    <DataTable.Cell>{skill.nivel}</DataTable.Cell>
-                    <DataTable.Cell >
-                      <TouchableOpacity onPress={() => navEditSkill(skill)}>
-                        <Text style={{color: '#191970'}}>Editar</Text>
-                      </TouchableOpacity>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                      <TouchableOpacity onPress={() => removerHabilidade(skill.id)}>
-                        <Text  style={{color: '#DC143C'}}>Remover</Text>
-                      </TouchableOpacity>
-                    </DataTable.Cell>
+            <TouchableOpacity onPress={() => logOut()}>
+              <Text style={{ padding: 8, borderColor: '#000', borderWidth: 1, borderRadius: 20, margin: 10 }}>Logout</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={[styles.txt, { color: '#000', textAlign: "center" }]}>{user.nome}</Text>
 
-                  </DataTable.Row>
+          <View>
+            <DataTable>
+              <DataTable.Header>
+                <DataTable.Title>#</DataTable.Title>
+                <DataTable.Title>Skill</DataTable.Title>
+                <DataTable.Title>Domínio</DataTable.Title>
+                <DataTable.Title>-</DataTable.Title>
+                <DataTable.Title>-</DataTable.Title>
+              </DataTable.Header>
+              {skills.map((skill) => {
 
+                return (
+                  <View>
+                    <DataTable.Row style={{flexDirection: 'row'}}>
+                        <Image
+                          source={{uri: skill.habilidade.imagem} }
+                          style={{width: 50,
+                            height: 50,
+                            resizeMode: 'cover',
+                            borderRadius: 10,
+                            marginBottom: 8,
+                            marginTop: 8,
+                            marginRight: 12,
 
-                </View>
-              )
-            })}
+                          }} />
+                      <DataTable.Cell >{skill.habilidade.nome}</DataTable.Cell>
+                      <DataTable.Cell>{skill.nivel}</DataTable.Cell>
+                      <DataTable.Cell >
+                        <TouchableOpacity onPress={() => navEditSkill(skill)}>
+                          <Text style={{ color: '#191970' }}>Editar</Text>
+                        </TouchableOpacity>
+                      </DataTable.Cell>
+                      <DataTable.Cell>
+                        <TouchableOpacity onPress={() => removerHabilidade(skill.id)}>
+                          <Text style={{ color: '#DC143C' }}>Remover</Text>
+                        </TouchableOpacity>
+                      </DataTable.Cell>
 
-          </DataTable>
-
-        </View>
-        <View style={styles.btnLogin}>
-                <TouchableOpacity style={styles.btn} onPress={() => setShouldShow(!shouldShow)}>
-                    <Text style={styles.txt}>Catalogo Skills</Text>
-                   
-                </TouchableOpacity>
-            </View>
-        
-            <CadastroSkill shouldShow={shouldShow} adicionaHabilidade={adicionaHabilidade} />
-        
-        
-        
-      </ScrollView>
+                    </DataTable.Row>
 
 
-    </View>
-      )
-  }else{
+                  </View>
+                )
+              })}
+
+            </DataTable>
+
+          </View>
+          <View style={styles.btnLogin}>
+            <TouchableOpacity style={styles.btn} onPress={() => setShouldShow(!shouldShow)}>
+              <Text style={styles.txt}>Catalogo Skills</Text>
+
+            </TouchableOpacity>
+          </View>
+
+          <CatalogoSkills shouldShow={shouldShow} adicionaHabilidade={adicionaHabilidade} />
+
+
+
+        </ScrollView>
+
+
+      </View>
+    )
+  } else {
     return null
   }
 }
 
-      export default Home;
+export default Home;

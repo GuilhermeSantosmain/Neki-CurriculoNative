@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Keyboard, TextInput, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import styles from './styles';
 import { AuthContext } from '../../contexts/auth'
 
@@ -56,7 +56,7 @@ getHabilidadesNaoUsadas()
                     </TouchableOpacity>
                 </View>
             </View>
-
+            
         </View>
 
     // </TouchableWithoutFeedback>

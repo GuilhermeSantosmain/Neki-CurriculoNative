@@ -33,7 +33,6 @@ const AuthProvider = ({ children }) => {
         http.post('usuario/login', usuario)
             .then(response => {
                 setUser(response.data) 
-                console.log(response.data.habilidades) 
                 navigation.navigate('Home')
 
             }).catch(erro => {
@@ -49,7 +48,6 @@ const AuthProvider = ({ children }) => {
         }
         http.post('usuario', usuario)
         .then(response => {
-            console.log(response.data.habilidades) 
             navigation.navigate('Login')
 
         }).catch(erro => {
@@ -65,7 +63,6 @@ const AuthProvider = ({ children }) => {
         http.post('habilidade/usuario', user)
                 .then(response => {                    
                     setSkills(response.data)
-                    console.log(response.data) 
     
                 }).catch(erro => {
                     console.log(erro)
@@ -76,7 +73,6 @@ const AuthProvider = ({ children }) => {
         http.post('habilidade/unused', user)
                 .then(response => {                    
                     setSkillsUnused(response.data)
-                    console.log(response.data) 
     
                 }).catch(erro => {
                     console.log(erro)

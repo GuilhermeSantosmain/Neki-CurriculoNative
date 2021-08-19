@@ -23,10 +23,18 @@ const CatalogoSkills = (props) => {
   
                 return (
                   <View>
-                    <DataTable.Row>
-                      <DataTable.Cell>
-                        <Image source={skill.imagem} />
-                      </DataTable.Cell>
+                    <DataTable.Row style={{flexDirection: 'row'}}>
+                        <Image
+                          source={{uri: skill.imagem} }
+                          style={{width: 50,
+                            height: 50,
+                            resizeMode: 'cover',
+                            borderRadius: 10,
+                            marginBottom: 8,
+                            marginTop: 8,
+                            marginRight: 12,
+
+                          }} />
                       <DataTable.Cell>{skill.nome}</DataTable.Cell>
                       <DataTable.Cell>{skill.descricao}</DataTable.Cell>
                       <DataTable.Cell >
